@@ -31,7 +31,8 @@
 #include <time.h>
 #include <errno.h>
 #include <pthread.h>
-#include <mqueue.h>
+#include <sys/msg.h>
+#include <sys/ipc.h>
 #include <fcntl.h>
 #include <semaphore.h>
 #include <sys/types.h>
