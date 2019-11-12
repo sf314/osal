@@ -19,7 +19,7 @@
  */
 
 /****************************************************************************************
-                                    COMMON INCLUDE FILES
+ COMMON INCLUDE FILES
  ***************************************************************************************/
 
 #include <stdio.h>
@@ -43,11 +43,11 @@
 #include "os-impl.h"
 
 /****************************************************************************************
-                                     DEFINES
+ DEFINES
  ***************************************************************************************/
 
 /****************************************************************************************
-                                    TYPEDEFS
+ TYPEDEFS
  ***************************************************************************************/
 
 typedef void * (*PthreadFuncPtr_t)(void *arg);
@@ -60,14 +60,14 @@ typedef struct
 
 typedef struct
 {
-   bool          EnableTaskPriorities;
-   uint32        TruncateQueueDepth;
-   uint32        ClockAccuracyNsec;
-   pthread_key_t ThreadKey;
-   sigset_t      MaximumSigMask;
-   sigset_t      NormalSigMask;
-   POSIX_PriorityLimits_t PriLimits;
-   int           SelectedRtScheduler;
+    bool          EnableTaskPriorities;
+    uint32        TruncateQueueDepth;
+    uint32        ClockAccuracyNsec;
+    pthread_key_t ThreadKey;
+    sigset_t      MaximumSigMask;
+    sigset_t      NormalSigMask;
+    POSIX_PriorityLimits_t PriLimits;
+    int           SelectedRtScheduler;
 } POSIX_GlobalVars_t;
 
 typedef struct
@@ -78,7 +78,7 @@ typedef struct
 
 
 /****************************************************************************************
-                                   GLOBAL DATA
+ GLOBAL DATA
  ***************************************************************************************/
 
 extern POSIX_GlobalVars_t POSIX_GlobalVars;
@@ -94,7 +94,7 @@ extern OS_Posix_filehandle_entry_t OS_impl_filehandle_table[OS_MAX_NUM_OPEN_FILE
 
 
 /****************************************************************************************
-                       POSIX IMPLEMENTATION FUNCTION PROTOTYPES
+ POSIX IMPLEMENTATION FUNCTION PROTOTYPES
  ***************************************************************************************/
 
 int32 OS_Posix_TaskAPI_Impl_Init(void);

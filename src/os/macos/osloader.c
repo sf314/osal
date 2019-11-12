@@ -16,7 +16,7 @@
  */
 
 /****************************************************************************************
-                                    INCLUDE FILES
+ INCLUDE FILES
  ***************************************************************************************/
 
 #include <stdlib.h>
@@ -31,7 +31,7 @@
  */
 #include "../portable/os-impl-posix-dl.c"
 
-                        
+
 /*----------------------------------------------------------------
  *
  * Function: OS_ModuleGetInfo_Impl
@@ -42,17 +42,17 @@
  *-----------------------------------------------------------------*/
 int32 OS_ModuleGetInfo_Impl ( uint32 module_id, OS_module_prop_t *module_prop )
 {
-   /*
-    * Note that the "dlinfo()" function might return some interesting
-    * information for this API, but this is actually a non-posix GNU extension.
-    * However this is not done for now, limiting to only posix APIs here
-    */
+    /*
+     * Note that the "dlinfo()" function might return some interesting
+     * information for this API, but this is actually a non-posix GNU extension.
+     * However this is not done for now, limiting to only posix APIs here
+     */
     return(OS_SUCCESS);
-
+    
 } /* end OS_ModuleGetInfo_Impl */
 
 
-                        
+
 /*----------------------------------------------------------------
  *
  * Function: OS_SymbolTableDump_Impl
@@ -63,8 +63,8 @@ int32 OS_ModuleGetInfo_Impl ( uint32 module_id, OS_module_prop_t *module_prop )
  *-----------------------------------------------------------------*/
 int32 OS_SymbolTableDump_Impl ( const char *filename, uint32 SizeLimit )
 {
-
-   return(OS_ERR_NOT_IMPLEMENTED);
-
+    
+    return(OS_ERR_NOT_IMPLEMENTED);
+    
 } /* end OS_SymbolTableDump_Impl */
 

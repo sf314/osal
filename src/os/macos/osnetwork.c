@@ -16,7 +16,7 @@
  */
 
 /****************************************************************************************
-                                    INCLUDE FILES
+ INCLUDE FILES
  ***************************************************************************************/
 
 #include "os-posix.h"
@@ -47,7 +47,7 @@
 const int OS_IMPL_SOCKET_FLAGS = O_NONBLOCK;
 
 /****************************************************************************************
-                                     COMMON ROUTINES
+ COMMON ROUTINES
  After including the OS/C-library specific include files, the basic UNIX file API is used
  ****************************************************************************************/
 
@@ -59,8 +59,8 @@ const int OS_IMPL_SOCKET_FLAGS = O_NONBLOCK;
 
 
 /****************************************************************************************
-                         IMPLEMENTATION-SPECIFIC ROUTINES
-             These are specific to this particular operating system
+ IMPLEMENTATION-SPECIFIC ROUTINES
+ These are specific to this particular operating system
  ****************************************************************************************/
 
 /*----------------------------------------------------------------
@@ -82,8 +82,8 @@ int32 OS_NetworkGetID_Impl             (int32 *IdBuf)
 
 
 /****************************************************************************************
-                         NOT IMPLEMENTED OPTION
-            This block provides stubs in case this module is disabled by config
+ NOT IMPLEMENTED OPTION
+ This block provides stubs in case this module is disabled by config
  ****************************************************************************************/
 
 /*
