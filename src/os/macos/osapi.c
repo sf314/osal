@@ -26,7 +26,11 @@
 
 #include "os-posix.h"
 #include <sched.h>
+
 #include <time.h>
+
+#include <sys/msg.h>
+#include <sys/ipc.h>
 
 /*
  * Defines
@@ -1146,74 +1150,16 @@ int32 OS_Posix_QueueAPI_Impl_Init(void)
  *-----------------------------------------------------------------*/
 int32 OS_QueueCreate_Impl (uint32 queue_id, uint32 flags)
 {
-    int                            return_code;
-    int                         queueDesc;
-    struct msqid_ds             queueAttr;
-    char                          name[OS_MAX_API_NAME * 2];
+    key_t mq_key = ftok(".", 123);
+    int mq_id;
     
-    /* set queue attributes */
-    memset(&queueAttr, 0, sizeof(queueAttr));
-    queueAttr.mq_maxmsg  = OS_queue_table[queue_id].max_depth;
-    queueAttr.mq_msgsize = OS_queue_table[queue_id].max_size;
-    
-    /*
-     * The "TruncateQueueDepth" indicates a soft limit to the size of a queue.
-     * If nonzero, anything larger than this will be silently truncated
-     * (Supports running applications as non-root)
-     */
-    if (POSIX_GlobalVars.TruncateQueueDepth > 0 &&
-        POSIX_GlobalVars.TruncateQueueDepth < queueAttr.mq_maxmsg)
-    {
-        queueAttr.mq_maxmsg = POSIX_GlobalVars.TruncateQueueDepth;
-    }
-    
-    /*
-     ** Construct the queue name:
-     ** The name will consist of "/<process_id>.queue_name"
-     */
-    snprintf(name, sizeof(name), "/%d.%s", (int)getpid(), OS_global_queue_table[queue_id].name_entry);
-    
-    /*
-     ** create message queue
-     */
-    queueDesc = msgget(ftok(name, 314), IPC_CREAT | 0666);
-    if ( queueDesc == (int)(-1) )
-    {
+    if ((mq_id = msgget(mq_key, IPC_CREAT | 0666)) == -1) {
         OS_DEBUG("OS_QueueCreate Error. errno = %d (%s)\n",errno,strerror(errno));
-        if( errno == EINVAL )
-        {
-            OS_DEBUG("Your queue depth may be too large for the\n");
-            OS_DEBUG("OS to handle. Please check the msg_max\n");
-            OS_DEBUG("parameter located in /proc/sys/fs/mqueue/msg_max\n");
-            OS_DEBUG("on your Linux file system and raise it if you\n");
-            OS_DEBUG(" need to or run as root\n");
-        }
-        return_code = OS_ERROR;
+        return OS_ERROR;
     }
-    else
-    {
-        OS_impl_queue_table[queue_id].id = queueDesc;
-        return_code = OS_SUCCESS;
-        
-        /*
-         * Unlink the queue right now --
-         * queues have kernel persistence and if we do a lot of restarts (i.e. during debugging)
-         * a lot of stale message queues will collect in the system.  It is OK to unlink right now
-         * as this only affects the ability of another process to open the same queue, but we do
-         * not need that to happen anyway.
-         */
-        if(mq_unlink(name) != 0)
-        {
-            OS_DEBUG("OS_QueueDelete Error during mq_unlink(). errno = %d (%s)\n",errno,strerror(errno));
-            /* Note - since the queue is already closed, we cannot really handle this failure gracefully,
-             * The queue is no longer usable so we can't return an error and go back to the way things were.
-             * In this case we need to return OS_SUCCESS so the rest of the entry will be cleaned up.
-             */
-        }
-    }
-                       
-                       return return_code;
-                       } /* end OS_QueueCreate_Impl */
+
+    return OS_SUCCESS;
+} /* end OS_QueueCreate_Impl */
                        
                        
     /*----------------------------------------------------------------
