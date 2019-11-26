@@ -111,4 +111,10 @@ int32 OS_Posix_FileSysAPI_Impl_Init(void);
 int32 OS_Posix_InternalTaskCreate_Impl (pthread_t *thr, uint32 priority, size_t stacksz, PthreadFuncPtr_t Entry, void *entry_arg);
 
 
-
+/**
+ * Signal min and max identifiers. 
+ *
+ * Follow linux kernel definition of 33 signals, 32 thru 64
+ */
+#define SIGRTMIN 32
+#define SIGRTMAX 64
