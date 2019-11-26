@@ -20,7 +20,7 @@
 # See http://www.gnu.org/software/libc/manual/html_node/Feature-Test-Macros.html
 # for a more detailed description of the feature test macros and available values
 #
-set(OSAL_COMMON_COMPILE_DEFS "${OSAL_COMMON_COMPILE_DEFS} -D_XOPEN_SOURCE=600")
+set(OSAL_COMMON_COMPILE_DEFS "${OSAL_COMMON_COMPILE_DEFS}")
 
 # OSAL_LINK_LIBS determines which system-level libraries must be included in the
 # link command in order to produce the final binary.  These libs will be used for
