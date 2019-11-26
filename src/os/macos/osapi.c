@@ -1193,7 +1193,7 @@ int32 OS_QueueCreate_Impl (uint32 queue_id, uint32 flags)
      ** create message queue
      */
     queueDesc = msgget(ftok(name, 314), IPC_CREAT | 0666);
-                       if ( queueDesc == (mqd_t)(-1) )
+    if ( queueDesc == (int)(-1) )
     {
         OS_DEBUG("OS_QueueCreate Error. errno = %d (%s)\n",errno,strerror(errno));
         if( errno == EINVAL )
@@ -1206,7 +1206,7 @@ int32 OS_QueueCreate_Impl (uint32 queue_id, uint32 flags)
         }
         return_code = OS_ERROR;
     }
-                       else
+    else
     {
         OS_impl_queue_table[queue_id].id = queueDesc;
         return_code = OS_SUCCESS;
