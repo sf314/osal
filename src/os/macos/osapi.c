@@ -26,6 +26,7 @@
 
 #include "os-posix.h"
 #include <sched.h>
+#include <time.h>
 
 /*
  * Defines
@@ -958,11 +959,7 @@ int32 OS_TaskDelay_Impl(uint32 millisecond)
         ++sleep_end.tv_sec;
     }
     
-    do
-    {
-        status = clock_nanosleep(CLOCK_MONOTONIC, TIMER_ABSTIME, &sleep_end, NULL);
-    }
-    while (status == EINTR);
+    status = nanosleep(&sleep_end, NULL);
     
     if (status != 0)
     {
