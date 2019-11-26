@@ -24,6 +24,7 @@
  ***************************************************************************************/
 
 #include "os-posix.h"
+#include <time.h>
 
 /****************************************************************************************
  EXTERNAL FUNCTION PROTOTYPES
@@ -51,6 +52,11 @@ static void  OS_UsecToTimespec(uint32 usecs, struct timespec *time_spec);
 #endif
 #endif
 
+/**
+ * Required for the below structure
+ */
+#define timer_t int
+
 /****************************************************************************************
  LOCAL TYPEDEFS
  ***************************************************************************************/
@@ -66,6 +72,14 @@ typedef struct
     struct timespec     softsleep;
     
 } OS_impl_timebase_internal_record_t;
+
+/** 
+ * Required in OS_TimeBaseSet_Impl. Provided by daemon-systems.org/man/itimerspec.3.html
+ */
+struct itimerspec {
+    struct timespec it_interval;
+    struct timespec it_value;
+};
 
 /****************************************************************************************
  GLOBAL DATA
