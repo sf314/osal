@@ -982,25 +982,12 @@ int32 OS_TaskDelay_Impl(uint32 millisecond)
  *-----------------------------------------------------------------*/
 int32 OS_TaskSetPriority_Impl (uint32 task_id, uint32 new_priority)
 {
-    int                     os_priority;
-    int                     ret;
-    
-    if (POSIX_GlobalVars.EnableTaskPriorities)
-    {
-        /* Change OSAL priority into a priority that will work for this OS */
-        os_priority = OS_PriorityRemap(new_priority);
-        
-        /*
-         ** Set priority
-         */
-        ret = pthread_setschedprio(OS_impl_task_table[task_id].id, os_priority);
-        if( ret != 0 )
-        {
-            OS_DEBUG("pthread_setschedprio: Task ID = %u, prio = %d, err = %s\n",
-                     (unsigned int)task_id,os_priority,strerror(ret));
-            return(OS_ERROR);
-        }
-    }
+    /**
+     * I, personally, wish to ignore task priorities when deploying 
+     * code on macOS, since it isn't a real-time OS anyways.
+     * 
+     * Thanks for coming to my TED talk.
+     */
     
     return OS_SUCCESS;
 } /* end OS_TaskSetPriority_Impl */
