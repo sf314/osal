@@ -33,7 +33,6 @@
 #include <sys/statvfs.h>
 #include <sys/stat.h>
 #include <sys/mount.h>
-#include <sys/vfs.h>
 
 #include "common_types.h"
 #include "osapi.h"
